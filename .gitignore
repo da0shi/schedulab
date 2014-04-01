@@ -1,0 +1,9 @@
+.*.swp
+*~
+*.bak
+Thumbs.db
+desktop.ini
+.DS_Store
+/composer.lock
+
+/app/vendor

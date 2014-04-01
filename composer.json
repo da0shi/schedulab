@@ -1,0 +1,10 @@
+{
+	"config": {
+		"vendor-dir": "app/vendor"
+	},
+	"require": {
+		"slim/slim": "2.*",
+		"j4mie/idiorm": "*",
+		"j4mie/paris": "*"
+	}
+}
