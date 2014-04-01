@@ -1,4 +1,4 @@
-scheculab
+schedulab
 =========
 
 scheduler for the lab
