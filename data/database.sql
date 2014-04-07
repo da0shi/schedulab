@@ -5,12 +5,13 @@ ON `schedulab`.*
 TO 'schedulab'@'localhost'
 IDENTIFIED BY 'schedulab';
 
+DROP TABLE IF EXISTS `schedulab`.`users`;
 CREATE TABLE IF NOT EXISTS `schedulab`.`users` (
-	`id` unsigned int NOT NULL AUTO_INCREMENT,
+	`id` int unsigned NOT NULL AUTO_INCREMENT,
 	`email` varchar(100) NOT NULL,
 	`password` varchar(100) NOT NULL,
 	`name` varchar(50) NOT NULL,
-	`group_id` smallint DEFAULT 1,
+	`group_id` int unsigned DEFAULT 1,
 	`created_at` datetime NOT NULL,
 	`updated_at` datetime NOT NULL,
 	`is_enabled` boolean DEFAULT TRUE,
@@ -19,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`users` (
 	UNIQUE KEY (`email`)
 );
 
-CREATE TABLE IF NOT EXISTS `schedulab`.`group` (
-	`id` unsigned int NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `schedulab`.`groups`;
+CREATE TABLE IF NOT EXISTS `schedulab`.`groups` (
+	`id` int unsigned NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL,
 	`description` text NULL,
 	`sort` int DEFAULT 0,
@@ -28,8 +30,9 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`group` (
 	UNIQUE KEY (`name`)
 );
 
-CREATE TABLE IF NOT EXISTS `schedulab`.`schedule` (
-	`id` unsigned int NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `schedulab`.`schedules`;
+CREATE TABLE IF NOT EXISTS `schedulab`.`schedules` (
+	`id` int unsigned NOT NULL AUTO_INCREMENT,
 	`user_id` int NOT NULL,
 	`title` varchar(100) NOT NULL,
 	`description` text NULL,
@@ -40,6 +43,21 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`schedule` (
 	`created_at` datetime NOT NULL,
 	`update_at` datetime NOT NULL,
 	`sort` int DEFAULT 0,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY (`name`)
+	PRIMARY KEY (`id`)
 );
+
+DROP TABLE IF EXISTS `schedulab`.`join`;
+CREATE TABLE IF NOT EXISTS `schedulab`.`users_schedules` (
+	`user_id` int unsigned NOT NULL,
+	`schedule_id` int unsigned NOT NULL,
+	`status` boolean DEFAULT NULL,
+	PRIMARY KEY (`user_id`, `schedule_id`)
+);
+
+/**
+ CREATE TABLE IF NOT EXISTS `schedulab`.`categories` (
+	`id`,
+	`name`,
+	`description`,
+ );
+ */
