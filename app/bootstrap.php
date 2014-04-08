@@ -2,10 +2,10 @@
 
 require APPPATH .'vendor/autoload.php';
 
-require_once 'idiorm.php';
-require_once 'paris.php';
+ORM::configure('mysql:host=localhost;dbname=schedulab;');
+if (PHP_OS === 'Darwin') {
+   ORM::configure('mysql:host=localhost;dbname=schedulab;unix_socket=/tmp/mysql.sock;');
+}
 
-
-ORM::configure('mysql:host=localhost;dbname=schedulab');
 ORM::configure('username', 'schedulab');
 ORM::configure('password', 'schedulab');
