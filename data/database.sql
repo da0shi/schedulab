@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`users_schedules` (
 );
 
 /**
+DROP TABLE IF EXISTS `schedulab`.`categories`;
  CREATE TABLE IF NOT EXISTS `schedulab`.`categories` (
 	`id`,
 	`name`,
