@@ -20,8 +20,18 @@ $config = array(
 $app = new Slim($config);
 $app->setName('schedulab');
 
+$app->view->setData('title', $app->getName());
+
 $app->get('/', function () use ($app) {
-	echo "This is a sample page for {$app->getName()}";
+	$app->render('index.php');
+});
+
+$app->get('/user/register', function () use ($app) {
+	$app->render('user/register.php');
+});
+
+$app->post('/user/register', function () use ($app) {
+	$app->redirect('/hello/user');
 });
 
 $app->get('/hello/:name', function ($name) {
