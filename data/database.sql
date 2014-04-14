@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`schedules` (
 	PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS `schedulab`.`join`;
+DROP TABLE IF EXISTS `schedulab`.`users_schedules`;
 CREATE TABLE IF NOT EXISTS `schedulab`.`users_schedules` (
 	`user_id` int unsigned NOT NULL,
 	`schedule_id` int unsigned NOT NULL,
