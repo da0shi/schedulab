@@ -4,7 +4,7 @@ Coding Guidelines
 html
 -----
 
-### Order of attributes in <input>
+### Order of attributes in &lt;input&gt;
 
 1. type
 2. name
