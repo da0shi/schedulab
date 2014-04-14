@@ -26,12 +26,12 @@ $app->get('/', function () use ($app) {
 	$app->render('index.php');
 });
 
-$app->get('/user/register', function () use ($app) {
-	$app->render('user/register.php');
+$app->get('/signup', function () use ($app) {
+	$app->render('signup.php');
 });
 
-$app->post('/user/register', function () use ($app) {
-	$app->redirect('/hello/user');
+$app->post('/signup', function () use ($app) {
+	print_r($_POST);
 });
 
 $app->get('/hello/:name', function ($name) {
