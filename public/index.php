@@ -31,7 +31,16 @@ $app->get('/signup', function () use ($app) {
 });
 
 $app->post('/signup', function () use ($app) {
-	print_r($_POST);
+	$name = Input::post('name');
+	$email = Input::post('email');
+	$password = Input::post('password');
+	$result = User::create($name, $email, $password);
+	if ($result === false) {
+		$app->view->set('duplicate', Session::flash('duplicate-email'));
+		$app->view->set('shortpass', Session::flash('short-password'));
+		return $app->render('signup.php');
+	}
+	var_dump(Model::factory('User')->where_equal('email', $email)->find_one());
 });
 
 $app->get('/hello/:name', function ($name) {

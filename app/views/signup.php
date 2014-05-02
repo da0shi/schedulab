@@ -7,6 +7,10 @@
 <body>
 	<h1>User Register</h1>
 	<p>
+<div class="errors">
+<?php if (isset($duplicate)) echo $duplicate; ?>
+<?php if (isset($shortpass)) echo $shortpass; ?>
+</div>
 		<form action="" method="post">
 			<label for="name">username:</label>
 			<input type="text" name="name" id="name" />

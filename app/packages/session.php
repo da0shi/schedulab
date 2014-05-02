@@ -50,4 +50,21 @@ class Session
     {
         return static::$id;
     }
-}
+
+	public static function flash ($key, $value = null)
+	{
+		if ($key === null) return false;
+		if (! isset($_SESSION['flash'])) $_SESSION['flash'] = array();
+
+		if ($value === null) {
+			$return = null;
+			if (isset($_SESSION['flash'][$key])) {
+				$return = $_SESSION['flash'][$key];
+				unset($_SESSION['flash'][$key]);
+			}
+			return $return;
+		}
+
+		$_SESSION['flash'][$key] = $value;
+		}
+	}
