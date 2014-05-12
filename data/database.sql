@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`schedules` (
 	`user_id` int NOT NULL,
 	`title` varchar(100) NOT NULL,
 	`description` text NULL,
+	`is_allday` boolean DEFAULT FALSE,
 	`start_at` datetime NOT NULL,
 	`end_at` datetime NOT NULL,
 	`remined_at` datetime DEFAULT NULL,
