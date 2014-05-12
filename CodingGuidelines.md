@@ -13,6 +13,10 @@ html
 5. data
 6. style
 
+### Name for the attributes
+
+ &lt;tag id="this-is-id" class="this-is-class" name="this-is-name" &gt; &lt;/tag&gt; 
+
 
 php
 -----
