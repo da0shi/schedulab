@@ -48,6 +48,13 @@ $app->get('/schedule/create', function() use($app) {
 });
 
 $app->post('/schedule/create', function() use($app) {
+	$title = Input::post('title');
+	$startDate = Input::post('start-date');
+	$startTime = Input::post('start-time');
+	$endDate = Input::post('end-date');
+	$endTime = Input::post('end-time');
+	$detail = Input::post('detail');
+	$allday = Input::post('allday');
 	print_r($_POST);
 });
 
