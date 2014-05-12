@@ -22,8 +22,15 @@ class User extends Model
 	public static function create ($username, $email, $password)
 	{
 		$isValid = true;
+		foreach (func_get_args() as $arg) {
+			if (empty($arg)) {
+				Session::setFlash('empty-value',
+					'空の項目があります．');
+				$isValid = false;
+			}
+		}
 		if (strlen($password) < PASSWORD_LEN_MIN) {
-			Session::flash('short-password',
+			Session::setFlash('short-password',
 				'パスワードが短すぎます');
 			$isValid = false;
 		}
@@ -31,8 +38,8 @@ class User extends Model
 			->where_equal('email', $email)
 			->find_one();
 		if ($user) {
-			Session::flash('duplicate-email',
-				'このメールアドレスは既に使われています');
+			Session::setFlash('duplicate-email',
+				'このメールアドレスは不正か既に使われています');
 			$isValid = false;
 		}
 		if (! $isValid) return false;
@@ -41,8 +48,9 @@ class User extends Model
 		$user->name = $username;
 		$user->email = $email;
 		$user->password = static::hashpasswd($password);
-		$user->save();
-		return true;
+		$user->created_at = date('Y-m-d H:i:s');
+		$user->updated_at = date('Y-m-d H:i:s');
+		return $user->save();
 	}
 
 	protected static function hashpasswd ($password)

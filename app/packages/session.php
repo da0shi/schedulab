@@ -51,20 +51,31 @@ class Session
         return static::$id;
     }
 
-	public static function flash ($key, $value = null)
-	{
-		if ($key === null) return false;
-		if (! isset($_SESSION['flash'])) $_SESSION['flash'] = array();
+    public static function setFlash ($key, $value = null)
+    {
+        if ($key === null) return false;
+        if (! isset($_SESSION['flash'])) $_SESSION['flash'] = array();
 
-		if ($value === null) {
-			$return = null;
-			if (isset($_SESSION['flash'][$key])) {
-				$return = $_SESSION['flash'][$key];
-				unset($_SESSION['flash'][$key]);
-			}
-			return $return;
-		}
+        // use as flag
+        if ($value === null) $value = true;
 
-		$_SESSION['flash'][$key] = $value;
-		}
-	}
+        $_SESSION['flash'][$key] = $value;
+        return true;
+    }
+
+    public static function getFlash ($key, $default = null)
+    {
+        if ($key === null) return false;
+        if (! isset($_SESSION['flash'])) {
+            $_SESSION['flash'] = array();
+            return $default;
+        }
+
+        $return = $default;
+        if (isset($_SESSION['flash'][$key])) {
+            $return = $_SESSION['flash'][$key];
+            unset($_SESSION['flash'][$key]);
+        }
+        return $return;
+    }
+}
