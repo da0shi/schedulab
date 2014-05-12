@@ -43,6 +43,14 @@ $app->post('/signup', function () use ($app) {
 	var_dump(Model::factory('User')->where_equal('email', $email)->find_one());
 });
 
+$app->get('/schedule/create', function() use($app) {
+	$app->render('schedule/create.php');
+});
+
+$app->post('/schedule/create', function() use($app) {
+	print_r($_POST);
+});
+
 $app->get('/hello/:name', function ($name) {
 	echo "Hello, $name";
 });
