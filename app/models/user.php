@@ -21,28 +21,26 @@ class User extends Model
 
 	public static function create ($username, $email, $password)
 	{
-		$isValid = true;
+		$errorMssgs = array('hasError' => false);
 		foreach (func_get_args() as $arg) {
 			if (empty($arg)) {
-				Session::setFlash('empty-value',
-					'空の項目があります．');
-				$isValid = false;
+				$errorMssgs['empty-value'] = '空の項目があります．';
+				$errorMssgs['hasError'] = true;
 			}
 		}
 		if (strlen($password) < PASSWORD_LEN_MIN) {
-			Session::setFlash('short-password',
-				'パスワードが短すぎます');
-			$isValid = false;
+			$errorMssgs['short-password'] = 'パスワードが短すぎます';
+			$errorMssgs['hasError'] = true;
 		}
 		$user = Model::factory('User')
 			->where_equal('email', $email)
 			->find_one();
 		if ($user) {
-			Session::setFlash('duplicate-email',
-				'このメールアドレスは不正か既に使われています');
-			$isValid = false;
+			$errorMssgs['duplicate-email'] =
+				'このメールアドレスは不正か既に使われています';
+			$errorMssgs['hasError'] = true;
 		}
-		if (! $isValid) return false;
+		if ($errorMssgs['hasError']) return $errorMssgs;
 		
 		$user = Model::factory('User')->create();
 		$user->name = $username;
@@ -50,6 +48,7 @@ class User extends Model
 		$user->password = static::hashpasswd($password);
 		$user->created_at = date('Y-m-d H:i:s');
 		$user->updated_at = date('Y-m-d H:i:s');
+
 		return $user->save();
 	}
 

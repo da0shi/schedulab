@@ -31,17 +31,31 @@ $app->get('/signup', function () use ($app) {
 });
 
 $app->post('/signup', function () use ($app) {
-	$name = Input::post('name');
-	$email = Input::post('email');
-	$password = Input::post('password');
+	$request = $app->request();
+	$name = $request->post('name');
+	$email = $request->post('email');
+	$password = $request->post('password');
 	$result = User::create($name, $email, $password);
-	if ($result === false) {
-		$app->view->set('emptyval', Session::getFlash('empty-value'));
-		$app->view->set('duplicate', Session::getFlash('duplicate-email'));
-		$app->view->set('shortpass', Session::getFlash('short-password'));
+	if (is_array($result) && $result['hasError']) {
+		if (isset($result['empty-value'])) {
+			$app->flashNow('emptyval', $result['empty-value']);
+		}
+		if (isset($result['duplicate-email'])) {
+			$app->flashNow('duplicate', $result['duplicate-email']);
+		}
+		if (isset($result['short-password'])) {
+			$app->flashNow('shortpass', $result['short-password']);
+		}
 		return $app->render('signup.php');
 	}
 	var_dump(Model::factory('User')->where_equal('email', $email)->find_one());
+});
+
+$app->get('/signin', function () use ($app) {
+	$app->render('singin.php');
+});
+
+$app->post('/signup', function () use ($app) {
 });
 
 $app->get('/schedule/create', function() use($app) {
