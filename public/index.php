@@ -63,14 +63,28 @@ $app->get('/schedule/create', function() use($app) {
 });
 
 $app->post('/schedule/create', function() use($app) {
-	$title = Input::post('title');
-	$startDate = Input::post('start-date');
-	$startTime = Input::post('start-time');
-	$endDate = Input::post('end-date');
-	$endTime = Input::post('end-time');
-	$detail = Input::post('detail');
-	$allday = Input::post('allday');
-	print_r($_POST);
+	$args = array();
+	$args['title'] = Input::post('title');
+	$args['startDate'] = Input::post('start-date');
+	$args['startTime'] = Input::post('start-time');
+	$args['endDate'] = Input::post('end-date');
+	$args['endTime'] = Input::post('end-time');
+	$args['detail'] = Input::post('detail');
+	$args['allday'] = Input::post('allday');
+	$result = Schedule::create($args);
+	if (is_array($result) && $result['hasError']) {
+		if (isset($result['empty-title'])) {
+			$app->flashNow('emptytitle', $result['empty-title']);
+		}
+		if (isset($result['empty-date'])) {
+			$app->flashNow('emptydate', $result['empty-date']);
+		}
+		if (isset($result['invalid-date'])) {
+			$app->flashNow('invalid', $result['invalid-date']);
+		}
+		return $app->render('schedule/create.php');
+	}
+	var_dump(Model::factory('Schedule')->where_equal('title', $args['title'])->find_one());
 });
 
 $app->get('/hello/:name', function ($name) {
