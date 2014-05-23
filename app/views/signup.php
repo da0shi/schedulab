@@ -18,13 +18,10 @@
 </section>
 <section>
 			<label for="email">email:</label>
-<<<<<<< HEAD
-=======
 			<input type="email" name="email" id="email" required />
 			<?php echo $flash['duplicate']; ?>
 </section>
 <section>
->>>>>>> baf791b4a07e7db7a5893e4a7eb0cac99a7dbab5
 			<label for="password">password:</label>
 			<input type="password" name="password" id ="password" required />
 			<?php echo $flash['shortpass']; ?>
