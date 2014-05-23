@@ -9,14 +9,9 @@
 	<h1>User Register</h1>
 	<p>
 <div class="errors">
-<?php echo $flash['failed']; ?>
 <?php echo $flash['emptyval']; ?>
 </div>
 		<form action="" method="post">
-<section>
-			<label for="name">username:</label>
-			<input type="text" name="name" id="name" required />
-</section>
 <section>
 			<label for="email">email:</label>
 			<input type="email" name="email" id="email" required />

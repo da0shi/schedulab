@@ -49,7 +49,11 @@ class User extends Model
 		$user->created_at = date('Y-m-d H:i:s');
 		$user->updated_at = date('Y-m-d H:i:s');
 
-		return $user->save();
+		if ($user->save() === true) {
+			return $user->id();
+		} else {
+			return false;
+		}
 	}
 
 	protected static function hashpasswd ($password)

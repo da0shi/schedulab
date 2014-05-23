@@ -32,7 +32,7 @@ class Session
 
     public static function read ($key)
     {
-        if (! static::check([$key])) return null;
+        if (! static::check($key)) return null;
         return $_SESSION[$key];
     }
 

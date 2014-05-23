@@ -47,15 +47,20 @@ $app->post('/signup', function () use ($app) {
 			$app->flashNow('shortpass', $result['short-password']);
 		}
 		return $app->render('signup.php');
+	} else if ($result === false) {
+		$app->flashNow('failed', 'データベースへの登録に失敗しました．');
+		return $app->render('signup.php');
 	}
-	var_dump(Model::factory('User')->where_equal('email', $email)->find_one());
+	$user = Model::factory('User')->where_equal('id', $result)->find_one();
+	Session::write('user', $user);
+	Session::write('login', true);
 });
 
 $app->get('/signin', function () use ($app) {
-	$app->render('singin.php');
+	$app->render('signin.php');
 });
 
-$app->post('/signup', function () use ($app) {
+$app->post('/signin', function () use ($app) {
 });
 
 $app->get('/schedule/create', function() use($app) {
