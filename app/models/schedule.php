@@ -51,8 +51,8 @@ class Schedule extends Model
 		$schedule->is_allday = $args['allday'];
 		$schedule->start_at = $start;
 		$schedule->end_at = $end;
-		$schedule->create_at = date('Y-m-d H:i:s');
-		$schedule->update_at = date('Y-m-d H:i:s');
+		$schedule->created_at = date('Y-m-d H:i:s');
+		$schedule->updated_at = date('Y-m-d H:i:s');
 		return $schedule->save();
 	}
 
