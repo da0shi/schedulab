@@ -26,14 +26,12 @@ class Session
 
     public static function write ($key, $value = null)
     {
-        if ($value === null) $value = true;
-        $_SESSION[$key] = $value;
+        Arr::set($_SESSION, $key, $value);
     }
 
-    public static function read ($key)
+    public static function read ($key, $default = null)
     {
-        if (! static::check($key)) return null;
-        return $_SESSION[$key];
+        return Arr::get($_SESSION, $key, $default);
     }
 
     public static function check ($key)
