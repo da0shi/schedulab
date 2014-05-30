@@ -52,8 +52,8 @@ $app->post('/signup', function () use ($app) {
 		return $app->render('signup.php');
 	}
 	$user = Model::factory('User')->where_equal('id', $result)->find_one();
-	Session::write('user', $user);
-	Session::write('login', true);
+	Session::write('auth.user', $user);
+	Session::write('auth.login', true);
 });
 
 $app->get('/signin', function () use ($app) {
