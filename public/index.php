@@ -69,16 +69,16 @@ $app->get('/schedule/create', function() use($app) {
 
 $app->post('/schedule/create', function() use($app) {
 	$request = $app->request();
-	$args = array();
-	$args['user_id'] = Session::read('user')->id;
-	$args['title'] = $request->post('title');
-	$args['startDate'] = $request->post('startDate');
-	$args['startTime'] = $request->post('startTime');
-	$args['endDate'] = $request->post('endDate');
-	$args['endTime'] = $request->post('endTime');
-	$args['detail'] = $request->post('detail');
-	$args['allday'] = $request->post('allday');
-	$result = Schedule::create($args);
+	$data = array();
+	$data['user_id'] = Session::read('auth.user')->id;
+	$data['title'] = $request->post('title');
+	$data['startDate'] = $request->post('start-date');
+	$data['startTime'] = $request->post('start-time');
+	$data['endDate'] = $request->post('end-date');
+	$data['endTime'] = $request->post('end-time');
+	$data['detail'] = $request->post('detail');
+	$data['allday'] = $request->post('allday');
+	$result = Schedule::create($data);
 	if (is_array($result) && $result['hasError']) {
 		if (isset($result['empty-title'])) {
 			$app->flashNow('emptytitle', $result['empty-title']);
@@ -91,7 +91,7 @@ $app->post('/schedule/create', function() use($app) {
 		}
 		return $app->render('schedule/create.php');
 	}
-	var_dump(Model::factory('Schedule')->where_equal('title', $args['title'])->find_one());
+	var_dump(Model::factory('Schedule')->where_equal('title', $data['title'])->find_one());
 });
 
 $app->get('/hello/:name', function ($name) {
