@@ -14,29 +14,39 @@ class Schedule extends Model
 		return $this->has_many('UserSchedule');
 	}
 
-	public static function create ($args) 
+	public static function create ($data) 
 	{
 		$errorMssgs = array('hasError' => false);
-		if (strlen($args['title']) == 0) {
+		if (strlen($data['title']) == 0) {
 			$errorMssgs['empty-title'] = 'タイトルが空です';
 			$errorMssgs['hasError'] = true;
 		}
-		if (isset($args['allday'])) {
-			$args['allday'] = false;
-			if (strlen($args['startDate']) == 0 || strlen($args['endDate']) == 0) {
+
+		if (isset($data['allday'])) {
+			$data['allday'] = true;
+			$stime = '00:00';
+			$etime = '00:00';
+		} else {
+			$data['allday'] = false;
+			$stime = $data['startTime'];
+			$etime = $data['endTime'];
+		}
+
+		if ($data['allday']) {
+			if (strlen($data['startDate']) == 0 || strlen($data['endDate']) == 0) {
 				$errorMssgs['empty-date'] = '日付を入力してください';
 				$errorMssgs['hasError'] = true;
 			}
 		} else {
-			$args['allday'] = true;
-			if (strlen($args['startDate']) == 0 || strlen($args['startTime']) == 0 || strlen($args['endDate']) == 0 || strlen($args['endTime']) == 0) {
+			if (strlen($data['startDate']) == 0 || strlen($data['startTime']) == 0 
+				|| strlen($data['endDate']) == 0 || strlen($data['endTime']) == 0) {
 				$errorMssgs['empty-date'] = '日付を入力してください';
 				$errorMssgs['hasError'] = true;
 			}
 		}
 
-		$start = $args['startDate'] . " "  . $args['startTime'];
-		$end = $args['endDate'] . " "  . $args['endTime'];
+		$start = $data['startDate'] . " "  . $stime;
+		$end = $data['endDate'] . " "  . $etime;
 		if (strtotime($start) > strtotime($end)) {
 			$errorMssgs['invalid-date'] = '日付が不正です';
 			$errorMssgs['hasError'] = true;
@@ -45,10 +55,10 @@ class Schedule extends Model
 		if ($errorMssgs['hasError']) return $errorMssgs;
 		
 		$schedule = Model::factory('Schedule')->create();
-		$schedule->user_id = $args['user_id'];
-		$schedule->title = $args['title'];
-		$schedule->description = $args['detail'];
-		$schedule->is_allday = $args['allday'];
+		$schedule->user_id = $data['user_id'];
+		$schedule->title = $data['title'];
+		$schedule->description = $data['detail'];
+		$schedule->is_allday = (int)$data['allday'];
 		$schedule->start_at = $start;
 		$schedule->end_at = $end;
 		$schedule->created_at = date('Y-m-d H:i:s');

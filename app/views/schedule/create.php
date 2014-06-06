@@ -8,8 +8,9 @@
 	<h1>Create New Schedule</h1>
 	<p>
 <div class="errors">
-<?php if (isset($duplicate)) echo $duplicate; ?>
-<?php if (isset($shortpass)) echo $shortpass; ?>
+<?php echo $flash['emptytitle']; ?>
+<?php echo $flash['emptydate']; ?>
+<?php echo $flash['invalid']; ?>
 </div>
 		<form action="" method="post">
 			<label for="title">title:</label>
