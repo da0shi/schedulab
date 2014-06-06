@@ -63,14 +63,16 @@ $app->get('/schedule/create', function() use($app) {
 });
 
 $app->post('/schedule/create', function() use($app) {
+	$request = $app->request();
 	$args = array();
-	$args['title'] = Input::post('title');
-	$args['startDate'] = Input::post('start-date');
-	$args['startTime'] = Input::post('start-time');
-	$args['endDate'] = Input::post('end-date');
-	$args['endTime'] = Input::post('end-time');
-	$args['detail'] = Input::post('detail');
-	$args['allday'] = Input::post('allday');
+	$args['user_id'] = Session::read('user')->id;
+	$args['title'] = $request->post('title');
+	$args['startDate'] = $request->post('startDate');
+	$args['startTime'] = $request->post('startTime');
+	$args['endDate'] = $request->post('endDate');
+	$args['endTime'] = $request->post('endTime');
+	$args['detail'] = $request->post('detail');
+	$args['allday'] = $request->post('allday');
 	$result = Schedule::create($args);
 	if (is_array($result) && $result['hasError']) {
 		if (isset($result['empty-title'])) {
