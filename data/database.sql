@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `schedulab`.`schedules` (
 	`remined_at` datetime DEFAULT NULL,
 	`is_joinable` boolean DEFAULT FALSE,
 	`created_at` datetime NOT NULL,
-	`update_at` datetime NOT NULL,
+	`updated_at` datetime NOT NULL,
 	`sort` int DEFAULT 0,
 	PRIMARY KEY (`id`)
 );
