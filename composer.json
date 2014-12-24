@@ -7,7 +7,7 @@
     "j4mie/idiorm": "*",
     "j4mie/paris": "*"
   },
-  "require": {
+  "require-dev": {
     "michelf/php-markdown": "dev-lib",
     "phpunit/phpunit": "3.7.*",
     "theseer/fxsl": "1.0.*@dev",
