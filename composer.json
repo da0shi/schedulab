@@ -6,5 +6,21 @@
     "slim/slim": "2.*",
     "j4mie/idiorm": "*",
     "j4mie/paris": "*"
+  },
+  "require": {
+    "michelf/php-markdown": "dev-lib",
+    "phpunit/phpunit": "3.7.*",
+    "theseer/fxsl": "1.0.*@dev",
+    "theseer/phpdox": "0.7.0",
+    "squizlabs/php_codesniffer": "1.4.6",
+    "phpmd/phpmd": "1.5.0",
+    "phploc/phploc": "2.0.2",
+    "sebastian/phpcpd": "1.4.3",
+    "phpdocumentor/phpdocumentor": "v2.0.1",
+    "mayflower/php-codebrowser": "1.0.4",
+    "pear/console_commandline": "dev-trunk",
+    "pear/log": "dev-master",
+    "pear/pear_exception": "1.0.*@dev",
+    "phing/phing": "2.6.*"
   }
 }
